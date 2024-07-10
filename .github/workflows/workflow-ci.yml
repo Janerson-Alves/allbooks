@@ -1,0 +1,24 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Workflow de Integração Contínua
+
+# Aonde e em que situação Workflow vai ser chamado e rodado (TRIGGER ou GATILHO)
+on:
+  pull_request:
+    branches: [ "main" ]
+# Ações que vão ser executadas quando nosso Workflow for ativado
+jobs:
+  testes:
+    # Qual tipo de maquina nosso Workflow vai rodar
+    runs-on: ubuntu-latest
+
+    # Ações que vão rodar em nosso Workflow
+    steps:
+    - uses: actions/checkout@v3 # Pega a maquina Ubuntu que vai rodar nosso projeto, vai fazer um clone(baixar) no nosso projeto para a maquina que vai executar o Workflow
+    - name: Use Node.js #Especifica o que a ação vai ser feita
+      uses: actions/setup-node@v3 #Setar o node para a versão 3
+      with:
+        node-version: 20. # Setando a versão do Node que iremos utilizar
+    - run: npm install # Garantir que todas as instalações que nós fizermos no projeto vão ser feitas aqui também
+    - run: npm test # Comando usado para rodar os testes
